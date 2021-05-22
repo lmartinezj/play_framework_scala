@@ -8,6 +8,8 @@ GET         /productArgs                    controllers.Application.product(prod
 GET         /product/:prodType/:prodNum     controllers.Application.product(prodType, prodNum: Int)
 GET         /productRE/$prodType<[a-z]{2}\d\d>/:prodNum     controllers.Application.product(prodType, prodNum: Int)
 
+GET         /login1                         controllers.TaskList1.login
+GET         /validate1                      controllers.TaskList1.validateLoginGet(username, password)
 GET         /taskList1                      controllers.TaskList1.taskList
 
 # Prefix must match `play.assets.urlPrefix`
