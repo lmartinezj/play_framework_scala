@@ -15,6 +15,15 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     Ok(s"username: $username is logged in with password: $password")
   }
 
+  def validateLoginPost = Action { request =>
+    val postValues = request.body.asFormUrlEncoded
+    postValues.map {args =>
+      val username = args("username").head
+      val password = args("password").head
+      Ok(s"username: $username is logged in with password: $password")
+    }.getOrElse(Ok("Oops"))
+  }
+
   def taskList = Action {
     val tasks = List("task1", "task3", "task3", "eat", "sleep")
     Ok(views.html.taskList1(tasks))
