@@ -29,6 +29,8 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     }.getOrElse(Redirect(routes.TaskList1.login()))
   }
 
+  def createUser = TODO
+
   def taskList = Action {
     val  username = "luis"
     val tasks = TaskListInMemoryModel.getTasks(username)
