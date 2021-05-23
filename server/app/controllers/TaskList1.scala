@@ -20,8 +20,8 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     postValues.map {args =>
       val username = args("username").head
       val password = args("password").head
-      Ok(s"username: $username is logged in with password: $password")
-    }.getOrElse(Ok("Oops"))
+      Redirect(routes.TaskList1.taskList())
+    }.getOrElse(Redirect(routes.TaskList1.login()))
   }
 
   def taskList = Action {
