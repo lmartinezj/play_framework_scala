@@ -8,7 +8,7 @@ import play.api.i18n._
 @Singleton
 class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
-  def login = Action {
+  def login = Action { implicit request =>
     Ok(views.html.login1())
   }
 
