@@ -3,7 +3,6 @@ package controllers
 import javax.inject._
 import models.TaskListInMemoryModel
 import play.api.mvc._
-import play.api.i18n._
 
 @Singleton
 class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
@@ -16,7 +15,7 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     Ok(s"username: $username is logged in with password: $password")
   }
 
-  def validateLoginPost = Action { request =>
+  def validateLoginPost = Action { implicit request =>
     val postValues = request.body.asFormUrlEncoded
     postValues.map {args =>
       val username = args("username").head
@@ -24,12 +23,12 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       if (TaskListInMemoryModel.validateUser(username, password)) {
         Redirect(routes.TaskList1.taskList()).withSession("username" -> username)
       } else {
-        Redirect(routes.TaskList1.login())
+        Redirect(routes.TaskList1.login()).flashing("error" -> "Invalid username/password combination")
       }
     }.getOrElse(Redirect(routes.TaskList1.login()))
   }
 
-  def createUser = Action { request =>
+  def createUser = Action { implicit request =>
     val postValues = request.body.asFormUrlEncoded
     postValues.map {args =>
       val username = args("username").head
@@ -37,12 +36,12 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       if (TaskListInMemoryModel.createUser(username, password)) {
         Redirect(routes.TaskList1.taskList()).withSession("username" -> username)
       } else {
-        Redirect(routes.TaskList1.login())
+        Redirect(routes.TaskList1.login()).flashing("error" -> "User creation failed")
       }
     }.getOrElse(Redirect(routes.TaskList1.login()))
   }
 
-  def taskList = Action { request =>
+  def taskList = Action { implicit request =>
     val  usernameOption = request.session.get("username")
     usernameOption.map { username =>
       val tasks = TaskListInMemoryModel.getTasks(username)
