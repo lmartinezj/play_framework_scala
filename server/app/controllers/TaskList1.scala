@@ -61,7 +61,17 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     }.getOrElse(Redirect(routes.TaskList1.login()))
   }
 
-  def deleteTask = TODO
+  def deleteTask = Action { implicit request =>
+    val userNameOption = request.session.get("username")
+    userNameOption.map { username =>
+      val postValues = request.body.asFormUrlEncoded
+      postValues.map { args =>
+        val index = args("index").head.toInt
+        TaskListInMemoryModel.removeTask(username, index)
+        Redirect(routes.TaskList1.taskList())
+      }.getOrElse(Redirect(routes.TaskList1.taskList()))
+    }.getOrElse(Redirect(routes.TaskList1.login()))
+  }
 
   def logout = Action {
     Redirect(routes.TaskList1.login()).withNewSession
