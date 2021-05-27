@@ -61,6 +61,8 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
     }.getOrElse(Redirect(routes.TaskList1.login()))
   }
 
+  def deleteTask = TODO
+
   def logout = Action {
     Redirect(routes.TaskList1.login()).withNewSession
   }

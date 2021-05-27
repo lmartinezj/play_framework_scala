@@ -15,6 +15,7 @@ POST        /validatePost1                  controllers.TaskList1.validateLoginP
 POST        /createUser1                    controllers.TaskList1.createUser
 GET         /taskList1                      controllers.TaskList1.taskList
 POST        /addTask1                       controllers.TaskList1.addTask
+POST        /deleteTask1                    controllers.TaskList1.deleteTask
 GET         /logout1                        controllers.TaskList1.logout
 
 # Prefix must match `play.assets.urlPrefix`
