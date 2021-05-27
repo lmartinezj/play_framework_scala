@@ -12,6 +12,7 @@ GET         /login1                         controllers.TaskList1.login
 GET         /validateGet1                   controllers.TaskList1.validateLoginGet(username, password)
 
 POST        /validatePost1                  controllers.TaskList1.validateLoginPost
+POST        /validateForm1                  controllers.TaskList1.validateLoginForm
 POST        /createUser1                    controllers.TaskList1.createUser
 GET         /taskList1                      controllers.TaskList1.taskList
 POST        /addTask1                       controllers.TaskList1.addTask
