@@ -63,6 +63,19 @@ class TaskList1 @Inject()(cc: MessagesControllerComponents) extends MessagesAbst
     }.getOrElse(Redirect(routes.TaskList1.login()))
   }
 
+  def createUserForm = Action { implicit request =>
+    loginForm.bindFromRequest.fold(
+      formWithError => BadRequest(views.html.login1(formWithError)),
+      loginData => {
+        if (TaskListInMemoryModel.createUser(loginData.username, loginData.password)) {
+          Redirect(routes.TaskList1.taskList()).withSession("username" -> loginData.username)
+        } else {
+          Redirect(routes.TaskList1.login()).flashing("error" -> "User creation failed")
+        }
+      }
+    )
+  }
+
   def taskList = Action { implicit request =>
     val  usernameOption = request.session.get("username")
     usernameOption.map { username =>
