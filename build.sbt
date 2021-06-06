@@ -1,5 +1,4 @@
 import sbtcrossproject.{crossProject, CrossType}
-import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
 lazy val server = (project in file("server")).settings(commonSettings).settings(
 	name := "Play-Videos-Server",
@@ -9,11 +8,12 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
   // triggers scalaJSPipeline when using compile or continuous compilation
   compile in Compile := ((compile in Compile) dependsOn scalaJSPipeline).value,
   libraryDependencies ++= Seq(
-    "com.vmunier" %% "scalajs-scripts" % "1.1.2",
+    "com.vmunier" %% "scalajs-scripts" % "1.1.4",
     guice,
     specs2 % Test,
-    "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % "test",
-    "org.scalatest" %% "scalatest" % "2.1.3" % "test"
+    "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % Test,
+    "org.scalatest" %% "scalatest" % "3.0.0" % Test
+
   ),
   // Compile the project before generating Eclipse files, so that generated .scala or .class files for views and routes are present
   EclipseKeys.preTasks := Seq(compile in Compile)
@@ -24,9 +24,9 @@ lazy val client = (project in file("client")).settings(commonSettings).settings(
 	name := "Play-Videos-Client",
   scalaJSUseMainModuleInitializer := true,
   libraryDependencies ++= Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.9.5",
+    "org.scala-js" %%% "scalajs-dom" % "0.9.7",
 		"org.querki" %%% "jquery-facade" % "1.2",
-		"com.typesafe.play" %%% "play-json" % "2.7.0"
+		"com.typesafe.play" %%% "play-json" % "2.8.0"
   )
 ).enablePlugins(ScalaJSPlugin, ScalaJSWeb).
   dependsOn(sharedJs)
@@ -38,18 +38,18 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
 		name := "Play-Videos-Shared",
 		commonSettings,
 		libraryDependencies ++= Seq(
-			"com.typesafe.play" %%% "play-json" % "2.7.0"
+			"com.typesafe.play" %%% "play-json" % "2.8.0"
 		))
 lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.8",
+  scalaVersion := "2.12.13",
   organization := "edu.trinity"
 )
 
 // loads the server project at sbt startup
 onLoad in Global := (onLoad in Global).value andThen {s: State => "project server" :: s}
 libraryDependencies in server ++= Seq(
-  "org.scalatest" %% "scalatest" % "latest.integration" % "test"
+  "org.scalatest" %% "scalatest" % "3.0.0" % Test
 )
