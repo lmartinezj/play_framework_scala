@@ -20,5 +20,25 @@ class TaskList1Spec extends PlaySpec with GuiceOneServerPerSuite with OneBrowser
         findAll(cssSelector("li")).toList.map(_.text) mustBe List("Make videos", "Eat", "Sleep", "Code")
       }
     }
+
+    "add task" in {
+      pageTitle mustBe "Task List"
+      click on "newTask"
+      textField("newTask").value = "test"
+      submit()
+      eventually {
+        pageTitle mustBe "Task List"
+        findAll(cssSelector("li")).toList.map(_.text) mustBe List("test", "Make videos", "Eat", "Sleep", "Code")
+      }
+    }
+
+    "delete task" in {
+      pageTitle mustBe "Task List"
+      click on "delete-3"
+      eventually {
+        pageTitle mustBe "Task List"
+        findAll(cssSelector("li")).toList.map(_.text) mustBe List("test", "Make videos", "Eat", "Code")
+      }
+    }
   }
 }
