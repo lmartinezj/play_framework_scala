@@ -40,5 +40,40 @@ class TaskList1Spec extends PlaySpec with GuiceOneServerPerSuite with OneBrowser
         findAll(cssSelector("li")).toList.map(_.text) mustBe List("test", "Make videos", "Eat", "Code")
       }
     }
+
+    "logout" in {
+      pageTitle mustBe "Task List"
+      click on "logout"
+      eventually {
+        pageTitle mustBe "Login"
+      }
+    }
+
+    "create user and add two tasks" in {
+      pageTitle mustBe "Login"
+      click on "username-create"
+      textField("username-create").value = "thiago"
+      click on "password-create"
+      pwdField("password-create").value = "12345"
+      submit()
+      eventually {
+        pageTitle mustBe "Task List"
+        findAll(cssSelector("li")).toList.map(_.text) mustBe Nil
+        click on "newTask"
+        textField("newTask").value = "task1"
+        submit()
+        eventually {
+          pageTitle mustBe "Task List"
+          findAll(cssSelector("li")).toList.map(_.text) mustBe List("task1")
+          click on "newTask"
+          textField("newTask").value = "task2"
+          submit()
+          eventually {
+            pageTitle mustBe "Task List"
+            findAll(cssSelector("li")).toList.map(_.text) mustBe List("task2", "task1")
+          }
+        }
+      }
+    }
   }
 }
