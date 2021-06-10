@@ -1,10 +1,9 @@
 package controllers
 
-import javax.inject._
-
-import shared.SharedMessages
 import play.api.mvc._
-import play.api.i18n._
+import shared.SharedMessages
+
+import javax.inject._
 
 @Singleton
 class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
@@ -15,6 +14,10 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
 
   def product(prodType: String, prodNum: Int) = Action {
     Ok(s"Product Type is: $prodType, product number is: $prodNum")
+  }
+
+  def randomNumber = Action {
+    Ok(util.Random.nextInt(100).toString)
   }
   
 }
