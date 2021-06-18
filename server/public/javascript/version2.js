@@ -18,3 +18,8 @@ function createUser() {
 function deleteTask(index) {
     $("#contents").load("/deleteTask2?index=" + index)
 }
+
+function addTask() {
+    const newTask = $("#newTask").val();
+    $("#contents").load("/addTask2?newTask=" + encodeURIComponent(newTask))
+}
