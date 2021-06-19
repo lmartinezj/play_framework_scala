@@ -2,6 +2,11 @@
 
 @main("Task List (version 2)") {
     <div id="contents"></div>
+
+    <input type="hidden" id="loginRoute" value="@routes.TaskList2.login()">
+    <input type="hidden" id="validateRouteGet" value="@routes.TaskList2.validateLoginGet("login", "pass")">
+    <input type="hidden" id="validateRoutePost" value="@routes.TaskList2.validateLoginPost()">
+
     <script src="@routes.Assets.versioned("javascript/version2.js")"></script>
     <!-- <script src="@routes.TaskList2.generatedJS()"></script> -->
 }

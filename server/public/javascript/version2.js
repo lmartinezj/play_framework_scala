@@ -1,11 +1,20 @@
+const loginRoute = $("#loginRoute").val()
+const validateRoute = $("#validateRoutePost").val()
 
-$("#contents").load("/login2")
+$("#contents").load(loginRoute)
 
 function login() {
     const username = $("#loginName").val()
     const password = $("#loginPassword").val()
+
     console.log(username + " Tried to login with password "  + password)
-    $("#contents").load("/validateGet2?username=" + username + "&password=" + password)
+
+    $.post(validateRoute,
+        {username, password},
+        data => {
+            $("#contents").html(data)
+        }
+    )
 }
 
 function createUser() {
