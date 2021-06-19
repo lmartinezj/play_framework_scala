@@ -17,7 +17,8 @@ GET         /validateGet2                   controllers.TaskList2.validateLoginG
 GET         /createUser2                    controllers.TaskList2.createUser(username, password)
 GET         /deleteTask2                    controllers.TaskList2.deleteTask(index: Int)
 GET         /addTask2                       controllers.TaskList2.addTask(newTask)
-GET         /logout2                        controllers.TaskList2.logout()
+GET         /logout2                        controllers.TaskList2.logout
+GET         /generatedJS                    controllers.TaskList2.generatedJS
 
 # Routes for Task List version 1
 GET         /login1                         controllers.TaskList1.login
