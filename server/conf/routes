@@ -14,7 +14,6 @@ GET         /randomString/:length           controllers.Application.randomString
 GET         /load2                          controllers.TaskList2.load
 GET         /login2                         controllers.TaskList2.login
 GET         /validateGet2                   controllers.TaskList2.validateLoginGet(username, password)
-+ nocsrf
 POST        /validatePost2                  controllers.TaskList2.validateLoginPost
 GET         /createUser2                    controllers.TaskList2.createUser(username, password)
 GET         /deleteTask2                    controllers.TaskList2.deleteTask(index: Int)

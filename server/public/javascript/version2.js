@@ -1,3 +1,4 @@
+const csrfToken = $("#csrfToken").val()
 const loginRoute = $("#loginRoute").val()
 const validateRoute = $("#validateRoutePost").val()
 
@@ -10,7 +11,7 @@ function login() {
     console.log(username + " Tried to login with password "  + password)
 
     $.post(validateRoute,
-        {username, password},
+        {username, password, csrfToken},
         data => {
             $("#contents").html(data)
         }
