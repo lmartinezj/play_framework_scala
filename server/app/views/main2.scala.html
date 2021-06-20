@@ -1,11 +1,15 @@
-@()(implicit request: RequestHeader, flash: Flash)
+@(startRoute: String)(implicit request: RequestHeader, flash: Flash)
 
 @main("Task List (version 2)") {
     <div id="contents"></div>
 
     <input type="hidden" id="csrfToken" value="@helper.CSRF.getToken.value">
-    <input type="hidden" id="loginRoute" value="@routes.TaskList2.login()">
+
+    <input type="hidden" id="loginRoute" value="@startRoute">
     <input type="hidden" id="validateRoutePost" value="@routes.TaskList2.validateLoginPost()">
+    <input type="hidden" id="createRoute" value="@routes.TaskList2.createUser()">
+    <input type="hidden" id="deleteTaskRoute" value="@routes.TaskList2.deleteTask">
+    <input type="hidden" id="addTaskRoute" value="@routes.TaskList2.addTask">
 
     <script src="@routes.Assets.versioned("javascript/version2.js")"></script>
     <!-- <script src="@routes.TaskList2.generatedJS()"></script> -->

@@ -13,11 +13,12 @@ GET         /randomString/:length           controllers.Application.randomString
 # Routes for Task List version 2
 GET         /load2                          controllers.TaskList2.load
 GET         /login2                         controllers.TaskList2.login
+GET         /taskList2                      controllers.TaskList2.taskList
 GET         /validateGet2                   controllers.TaskList2.validateLoginGet(username, password)
 POST        /validatePost2                  controllers.TaskList2.validateLoginPost
-GET         /createUser2                    controllers.TaskList2.createUser(username, password)
-GET         /deleteTask2                    controllers.TaskList2.deleteTask(index: Int)
-GET         /addTask2                       controllers.TaskList2.addTask(newTask)
+POST        /createUser2                    controllers.TaskList2.createUser
+POST        /deleteTask2                    controllers.TaskList2.deleteTask
+POST        /addTask2                       controllers.TaskList2.addTask
 GET         /logout2                        controllers.TaskList2.logout
 GET         /generatedJS                    controllers.TaskList2.generatedJS
 
