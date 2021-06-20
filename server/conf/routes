@@ -10,6 +10,19 @@ GET         /productRE/$prodType<[a-z]{2}\d\d>/:prodNum     controllers.Applicat
 GET         /random                         controllers.Application.randomNumber
 GET         /randomString/:length           controllers.Application.randomString(length: Int)
 
+# Routes for Task List version 2
+GET         /load2                          controllers.TaskList2.load
+GET         /login2                         controllers.TaskList2.login
+GET         /taskList2                      controllers.TaskList2.taskList
+GET         /validateGet2                   controllers.TaskList2.validateLoginGet(username, password)
+POST        /validatePost2                  controllers.TaskList2.validateLoginPost
+POST        /createUser2                    controllers.TaskList2.createUser
+POST        /deleteTask2                    controllers.TaskList2.deleteTask
+POST        /addTask2                       controllers.TaskList2.addTask
+GET         /logout2                        controllers.TaskList2.logout
+GET         /generatedJS                    controllers.TaskList2.generatedJS
+
+# Routes for Task List version 1
 GET         /login1                         controllers.TaskList1.login
 GET         /validateGet1                   controllers.TaskList1.validateLoginGet(username, password)
 
@@ -21,8 +34,6 @@ GET         /taskList1                      controllers.TaskList1.taskList
 POST        /addTask1                       controllers.TaskList1.addTask
 POST        /deleteTask1                    controllers.TaskList1.deleteTask
 GET         /logout1                        controllers.TaskList1.logout
-
-
 
 # Prefix must match `play.assets.urlPrefix`
 GET         /assets/*file                   controllers.Assets.at(file)
