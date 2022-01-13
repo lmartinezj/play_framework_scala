@@ -10,6 +10,10 @@ GET         /productRE/$prodType<[a-z]{2}\d\d>/:prodNum     controllers.Applicat
 GET         /random                         controllers.Application.randomNumber
 GET         /randomString/:length           controllers.Application.randomString(length: Int)
 
+# Routes for Task List version 3
+GET         /load3                          controllers.TaskList3.load
+GET         /data                           controllers.TaskList3.data
+
 # Routes for Task List version 2
 GET         /load2                          controllers.TaskList2.load
 GET         /login2                         controllers.TaskList2.login
