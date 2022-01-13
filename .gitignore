@@ -33,3 +33,4 @@ shared/.jvm
 .cache
 .target
 bin/
+/null/
