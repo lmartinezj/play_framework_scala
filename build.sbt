@@ -12,6 +12,7 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     guice,
     specs2 % Test,
     "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
+    "com.typesafe.play" %% "twirl-compiler" % "1.5.1",
     "org.scalatest" %% "scalatest" % "3.2.9" % Test
 
   ),
