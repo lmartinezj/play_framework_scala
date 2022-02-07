@@ -9,6 +9,7 @@ const tasksRoute = document.getElementById("tasksRoute").value
 const createRoute = document.getElementById("createRoute").value
 const deleteTaskRoute = document.getElementById("deleteTaskRoute").value
 const addTaskRoute = document.getElementById("addTaskRoute").value
+const logoutRoute = document.getElementById("logoutRoute").value
 
 function login() {
     const username = document.getElementById("loginName").value
@@ -102,5 +103,12 @@ function createUser() {
         } else {
             console.log("FALSE")
         }
+    });
+}
+
+function logout() {
+    fetch(logoutRoute).then(res => res.json()).then(tasks => {
+       document.getElementById("login-section").hidden = false;
+       document.getElementById("task-section").hidden = true;
     });
 }

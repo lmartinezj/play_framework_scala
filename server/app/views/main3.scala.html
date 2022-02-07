@@ -35,7 +35,7 @@
 
 
     <div>
-        <a href="@routes.TaskList3.logout()" id="logout">Logout</a>
+        <button onclick="logout()">Logout</button>
     </div>
 </div>
 
@@ -46,6 +46,7 @@
 <input type="hidden" id="createRoute" value="@routes.TaskList3.createUser()">
 <input type="hidden" id="deleteTaskRoute" value="@routes.TaskList3.deleteTask">
 <input type="hidden" id="addTaskRoute" value="@routes.TaskList3.addTask">
+<input type="hidden" id="logoutRoute" value="@routes.TaskList3.logout">
 
 <script src="@routes.Assets.versioned("javascript/version3.js")"></script>
 <!-- <script src="@routes.TaskList2.generatedJS()"></script> -->

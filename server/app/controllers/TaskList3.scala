@@ -94,7 +94,7 @@ class TaskList3 @Inject()(cc: ControllerComponents) extends AbstractController(c
   }
 
   def logout = Action {
-    Redirect(routes.TaskList3.load()).withNewSession
+    Ok(Json.toJson(true)).withNewSession
   }
 
 }
