@@ -76,6 +76,29 @@ function addTask() {
     }).then(res => res.json()).then(data => {
         if (data) {
             loadTasks();
+            document.getElementById("newTask").value = "";
+        } else {
+            console.log("FALSE")
+        }
+    });
+}
+
+function createUser() {
+    const username = document.getElementById("createUsername").value
+    const password = document.getElementById("createPassword").value
+
+    fetch(createRoute, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Csrf-Token': csrfToken
+        },
+        body: JSON.stringify({ username, password })
+    }).then(res => res.json()).then(data => {
+        if (data) {
+            document.getElementById("login-section").hidden = true;
+            document.getElementById("task-section").hidden = false;
+            loadTasks();
         } else {
             console.log("FALSE")
         }
