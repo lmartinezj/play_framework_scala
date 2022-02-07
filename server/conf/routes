@@ -12,8 +12,8 @@ GET         /randomString/:length           controllers.Application.randomString
 
 # Routes for Task List version 3
 GET         /load3                          controllers.TaskList3.load
-GET         /data                           controllers.TaskList3.data
 POST        /validatePost3                  controllers.TaskList3.validate
+GET         /taskList3                      controllers.TaskList3.taskList
 
 # Routes for Task List version 2
 GET         /load2                          controllers.TaskList2.load

@@ -5,6 +5,7 @@
 
 const csrfToken = document.getElementById("csrfToken").value
 const validateRoute = document.getElementById("validateRoutePost").value
+const tasksRoute = document.getElementById("tasksRoute").value
 const createRoute = document.getElementById("createRoute").value
 const deleteTaskRoute = document.getElementById("deleteTaskRoute").value
 const addTaskRoute = document.getElementById("addTaskRoute").value
@@ -21,6 +22,18 @@ function login() {
         },
         body: JSON.stringify({ username, password })
     }).then(res => res.json()).then(data => {
-        console.log(data);
+        if (data) {
+            document.getElementById("login-section").hidden = true;
+            document.getElementById("task-section").hidden = false;
+            loadTasks();
+        } else {
+            console.log("FALSE")
+        }
     });
+}
+
+function loadTasks() {
+    fetch(tasksRoute).then(res => res.json()).then(tasks => {
+        console.log(tasks)
+    })
 }
