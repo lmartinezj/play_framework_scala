@@ -59,4 +59,18 @@ class TaskList3 @Inject()(cc: ControllerComponents) extends AbstractController(c
     }.getOrElse(Ok(Json.toJson(false)))
   }
 
+  def deleteTask = Action { implicit request =>
+    val userNameOption = request.session.get("username")
+    userNameOption.map { username =>
+      request.body.asJson.map { body =>
+        Json.fromJson[Int](body) match {
+          case JsSuccess(index, path) =>
+            TaskListInMemoryModel.removeTask(username, index);
+            Ok(Json.toJson(true))
+          case error@JsError(_) => Redirect(routes.TaskList3.load())
+        }
+      }.getOrElse(Ok(Json.toJson(false)))
+    }.getOrElse(Ok(Json.toJson(false)))
+  }
+
 }
