@@ -33,7 +33,13 @@ function login() {
 }
 
 function loadTasks() {
+    const ul = document.getElementById("task-list");
     fetch(tasksRoute).then(res => res.json()).then(tasks => {
-        console.log(tasks)
+        for (const task of tasks) {
+            const li = document.createElement("li");
+            const text = document.createTextNode(task);
+            li.appendChild(text);
+            ul.appendChild(li);
+        }
     })
 }

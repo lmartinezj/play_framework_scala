@@ -14,6 +14,7 @@ GET         /randomString/:length           controllers.Application.randomString
 GET         /load3                          controllers.TaskList3.load
 POST        /validatePost3                  controllers.TaskList3.validate
 GET         /taskList3                      controllers.TaskList3.taskList
+POST        /addTask3                       controllers.TaskList3.addTask
 
 # Routes for Task List version 2
 GET         /load2                          controllers.TaskList2.load
