@@ -26,9 +26,12 @@ function login() {
         if (data) {
             document.getElementById("login-section").hidden = true;
             document.getElementById("task-section").hidden = false;
+            document.getElementById("login-message").innerHTML = "";
+            document.getElementById("create-message").innerHTML = "";
             loadTasks();
         } else {
             console.log("FALSE")
+            document.getElementById("login-message").innerHTML = "login failed";
         }
     });
 }
@@ -53,9 +56,11 @@ function loadTasks() {
                         body: JSON.stringify(i)
                     }).then(res => res.json()).then(data => {
                         if (data) {
+                            document.getElementById("task-message").innerHTML = "";
                             loadTasks();
                         } else {
                             console.log("FALSE")
+                            document.getElementById("task-message").innerHTML = "failed to delete tasks";
                         }
                     });
             }
@@ -78,8 +83,10 @@ function addTask() {
         if (data) {
             loadTasks();
             document.getElementById("newTask").value = "";
+            document.getElementById("task-message").innerHTML = "";
         } else {
             console.log("FALSE")
+            document.getElementById("task-message").innerHTML = "failed to add a task";
         }
     });
 }
@@ -99,9 +106,12 @@ function createUser() {
         if (data) {
             document.getElementById("login-section").hidden = true;
             document.getElementById("task-section").hidden = false;
+            document.getElementById("login-message").innerHTML = "";
+            document.getElementById("create-message").innerHTML = "";
             loadTasks();
         } else {
             console.log("FALSE")
+            document.getElementById("create-message").innerHTML = "create failed";
         }
     });
 }
