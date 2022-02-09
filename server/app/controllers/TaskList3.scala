@@ -1,9 +1,8 @@
 package controllers
 
 import models.{TaskListInMemoryModel, UserData}
-import play.api.i18n._
-import play.api.libs.json.{JsError, JsSuccess, Json}
-import play.api.mvc.{AbstractController, ControllerComponents}
+import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
+import play.api.mvc._
 import play.filters.csrf.CSRF
 
 import javax.inject._
@@ -16,26 +15,29 @@ class TaskList3 @Inject()(cc: ControllerComponents) extends AbstractController(c
     Ok(views.html.main3())
   }
 
-  implicit val UserDataReads = Json.reads[UserData]
+  implicit val UserDataReads: Reads[UserData] = Json.reads[UserData]
 
-  def validate = Action {implicit request =>
+  def withJsonBody[A](f: A => Result)(implicit request: Request[AnyContent], reads: Reads[A]) = {
     request.body.asJson.map { body =>
-      Json.fromJson[UserData](body) match {
-        case JsSuccess(myUserData, path) =>
-
-          if (TaskListInMemoryModel.validateUser(myUserData.username, myUserData.password)) {
-            Ok(Json.toJson(true))
-              .withSession(
-                "username" -> myUserData.username,
-                "csrfToken" -> CSRF.getToken.get.value
-              )
-          } else {
-            Ok(Json.toJson(false))
-          }
-
+      Json.fromJson[A](body) match {
+        case JsSuccess(a, path) => f(a)
         case error @ JsError(_) => Redirect(routes.TaskList3.load())
       }
     }.getOrElse(Redirect(routes.TaskList3.load()))
+  }
+
+  def validate = Action {implicit request =>
+    withJsonBody[UserData] { myUserData =>
+      if (TaskListInMemoryModel.validateUser(myUserData.username, myUserData.password)) {
+        Ok(Json.toJson(true))
+          .withSession(
+            "username" -> myUserData.username,
+            "csrfToken" -> CSRF.getToken.get.value
+          )
+      } else {
+        Ok(Json.toJson(false))
+      }
+    }
   }
 
   def taskList = Action { implicit request   =>
