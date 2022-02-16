@@ -53,31 +53,21 @@ class TaskList3 @Inject()(cc: ControllerComponents) extends AbstractController(c
   }
 
   def addTask = Action { implicit request =>
-    val userNameOption = request.session.get("username")
-    userNameOption.map { username =>
-      request.body.asJson.map { body =>
-        Json.fromJson[String](body) match {
-          case JsSuccess(task, path) =>
-            TaskListInMemoryModel.addTask(username, task);
-            Ok(Json.toJson(true))
-          case error@JsError(_) => Redirect(routes.TaskList3.load())
-        }
-      }.getOrElse(Ok(Json.toJson(false)))
-    }.getOrElse(Ok(Json.toJson(false)))
+    withSessionUsername { username =>
+      withJsonBody[String] { task =>
+        TaskListInMemoryModel.addTask(username, task)
+        Ok(Json.toJson(true))
+      }
+    }
   }
 
   def deleteTask = Action { implicit request =>
-    val userNameOption = request.session.get("username")
-    userNameOption.map { username =>
-      request.body.asJson.map { body =>
-        Json.fromJson[Int](body) match {
-          case JsSuccess(index, path) =>
-            TaskListInMemoryModel.removeTask(username, index);
-            Ok(Json.toJson(true))
-          case error@JsError(_) => Redirect(routes.TaskList3.load())
-        }
-      }.getOrElse(Ok(Json.toJson(false)))
-    }.getOrElse(Ok(Json.toJson(false)))
+    withSessionUsername { username =>
+      withJsonBody[Int] { index =>
+        TaskListInMemoryModel.removeTask(username, index)
+        Ok(Json.toJson(true))
+      }
+    }
   }
 
   def createUser = Action {implicit request =>
