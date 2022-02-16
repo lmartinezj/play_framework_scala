@@ -76,23 +76,17 @@ class TaskList3 @Inject()(cc: ControllerComponents) extends AbstractController(c
   }
 
   def createUser = Action {implicit request =>
-    request.body.asJson.map { body =>
-      Json.fromJson[UserData](body) match {
-        case JsSuccess(myUserData, path) =>
-
-          if (TaskListInMemoryModel.createUser(myUserData.username, myUserData.password)) {
-            Ok(Json.toJson(true))
-              .withSession(
-                "username" -> myUserData.username,
-                "csrfToken" -> CSRF.getToken.get.value
-              )
-          } else {
-            Ok(Json.toJson(false))
-          }
-
-        case error @ JsError(_) => Redirect(routes.TaskList3.load())
+    withJsonBody[UserData] { myUserData =>
+      if (TaskListInMemoryModel.createUser(myUserData.username, myUserData.password)) {
+        Ok(Json.toJson(true))
+          .withSession(
+            "username" -> myUserData.username,
+            "csrfToken" -> CSRF.getToken.get.value
+          )
+      } else {
+        Ok(Json.toJson(false))
       }
-    }.getOrElse(Redirect(routes.TaskList3.load()))
+    }
   }
 
   def logout = Action {
