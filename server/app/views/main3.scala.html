@@ -10,7 +10,7 @@
     </br>
     Password: <input type="password" name="password" id="loginPassword"/>
     </br>
-    <button onclick="login()"/>Login</button>
+    <button onclick="login()"/>Login</button><span id="login-message"></span>
 
 
     <h2>Create User</h2>
@@ -19,31 +19,34 @@
     </br>
     Password: <input type="password" name="password" id="createPassword"/>
     </br>
-    <button onclick="createUser()"/>Create User</button>
+    <button onclick="createUser()"/>Create User</button><span id="create-message"></span>
     <br>
 </div>
 
 <div id="task-section" hidden>
     <h2>Task List</h2>
+
     <ul id="task-list">
 
     </ul>
 
     <input type="text" id="newTask"/>
-    <button onclick="addTask()">Add Task</button>
+    <button onclick="addTask()">Add Task</button><span id="task-message"></span>
 
 
     <div>
-        <a href="@routes.TaskList2.logout()" id="logout">Logout</a>
+        <button onclick="logout()">Logout</button>
     </div>
 </div>
 
 <input type="hidden" id="csrfToken" value="@helper.CSRF.getToken.value">
 
-<input type="hidden" id="validateRoutePost" value="@routes.TaskList2.validateLoginPost()">
-<input type="hidden" id="createRoute" value="@routes.TaskList2.createUser()">
-<input type="hidden" id="deleteTaskRoute" value="@routes.TaskList2.deleteTask">
-<input type="hidden" id="addTaskRoute" value="@routes.TaskList2.addTask">
+<input type="hidden" id="validateRoutePost" value="@routes.TaskList3.validate()">
+<input type="hidden" id="tasksRoute" value="@routes.TaskList3.taskList()">
+<input type="hidden" id="createRoute" value="@routes.TaskList3.createUser()">
+<input type="hidden" id="deleteTaskRoute" value="@routes.TaskList3.deleteTask">
+<input type="hidden" id="addTaskRoute" value="@routes.TaskList3.addTask">
+<input type="hidden" id="logoutRoute" value="@routes.TaskList3.logout">
 
 <script src="@routes.Assets.versioned("javascript/version3.js")"></script>
 <!-- <script src="@routes.TaskList2.generatedJS()"></script> -->
