@@ -10,6 +10,10 @@ GET         /productRE/$prodType<[a-z]{2}\d\d>/:prodNum     controllers.Applicat
 GET         /random                         controllers.Application.randomNumber
 GET         /randomString/:length           controllers.Application.randomString(length: Int)
 
+# Routes for WebSocket chat Application
+GET         /chat                           controllers.WebSocketChat.index
+GET         /chatSocket                     controllers.WebSocketChat.socket
+
 # Routes for Task List version 3
 GET         /load3                          controllers.TaskList3.load
 POST        /validatePost3                  controllers.TaskList3.validate
