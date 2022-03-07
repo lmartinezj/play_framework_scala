@@ -8,7 +8,10 @@ class ChatActor(out: ActorRef, manager: ActorRef) extends Actor {
   manager ! ChatManager.NewChatter(self)
 
   def receive: Receive = {
-    case message: String => println("Got Message: " + message)
+    case message: String => {
+      println("Got Message: " + message)
+      manager ! ChatManager.Message(message)
+    }
     case SendMessage(message) => out ! message
     case _ => println("Unhandled message in ChatActor: " + _)
   }

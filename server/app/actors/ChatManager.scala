@@ -11,9 +11,8 @@ class ChatManager extends Actor {
 
   override def receive: Receive = {
     case NewChatter(chatter) => chatters ::= chatter
-    case Message(message) =>
+    case Message(message) => chatters.foreach(_ ! ChatActor.SendMessage(message))
     case _ => println("Unhandled message in ChatManager: " + _)
-
   }
 }
 
